@@ -1,12 +1,33 @@
 import requests
 
-# Test Site
-test_store_url = 'https://paddywax.com' + '/products.json?page=1&limit=10'
 
-response = requests.get(test_store_url, timeout=30)
-response.raise_for_status()
+def fetch_all_products(store_url: str, limit: int = 250):
+    complete_url = f"{store_url}/products.json"
+    all_products: list[dict] = []
+    page = 1
 
-data = response.json()
-products = data.get("products",[])
+    while True:
+        response = requests.get(
+            complete_url, 
+            params={"page": page, "limit": limit}, 
+            timeout=30,
+            )
+        response.raise_for_status()
 
-print(products[1]['title'])
+        data = response.json()
+        products = data.get("products",[])
+        if not products:
+            break
+
+        print(products[1]['id'])
+        print(f"Page: {page}")
+
+        all_products.extend(products)
+        page += 1
+
+    return all_products
+
+
+if __name__ == "__main__":
+    items = fetch_all_products("https://paddywax.com", limit=10)
+    print(f"Fetched {len(items)} products")

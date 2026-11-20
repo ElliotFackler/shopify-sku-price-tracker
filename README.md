@@ -23,9 +23,9 @@ Packages: requests, pytest
 Git identity: git config --global user.name "..." and git config --global user.email "..."
 
 Build Milestones (Build Step by Step)
-Inspect Data Source: Check <store-url>/products.json (e.g., on a live candle storefront) and map where product title and nested variant sku and price live. Decide how to handle 403/404 or missing /products.json.
+COMPLETE - Inspect Data Source: Check <store-url>/products.json (e.g., on a live candle storefront) and map where product title and nested variant sku and price live. Decide how to handle 403/404 or missing /products.json.
 
-Single-Page Fetch -> Pagination: Fetch one page with page and limit parameters, call response.raise_for_status(), parse JSON, and then loop pages until products comes back empty (with polite pacing if needed).
+COMPLETE - Single-Page Fetch -> Pagination: Fetch one page with page and limit parameters, call response.raise_for_status(), parse JSON, and then loop pages until products comes back empty (with polite pacing if needed).
 
 SKU Prefix Filtering: Iterate through product["variants"], guard against None or empty sku values, decide on case sensitivity, and match the prefix.
 
